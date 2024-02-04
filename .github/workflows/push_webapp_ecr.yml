@@ -1,11 +1,14 @@
-name: Build and Push flask_app docker image to ECR
+name: Build and Push webapp docker image to ECR
 
 on:
   workflow_dispatch:
   push:
     branches: [ "master" ]
     paths: 
-      - flask_app/**
+      - flask_app/Dockerfile
+      - flask_app/app.py
+      - flask_app/requirements.txt
+      - flask_app/templates/**
 
 jobs:
   build:
@@ -36,14 +39,3 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
           docker ps
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      - name: Build mysqldb image and push it to ECR
-        env:
-          ECR_REGISTRY: '${{ steps.login-ecr.outputs.registry }}'
-          ECR_REPOSITORY: mysqldb
-          IMAGE_TAG: ${{ env.IMAGE_TAG }}
-        run: |
-          cd flask_app/
-          ls -ltra
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile_mysql .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-    
