@@ -14,7 +14,7 @@ resource "aws_instance" "amazon_linux" {
   iam_instance_profile        = "LabInstanceProfile"
   tags = merge(var.default_tags,
     {
-      "Name" = "hostmachine"
+      "Name" = "hostmachinename"
     }
   )
 }
