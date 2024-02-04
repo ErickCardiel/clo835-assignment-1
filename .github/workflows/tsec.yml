@@ -5,7 +5,9 @@ on:
   pull_request:
     branches: [ "master" ]
     paths: 
-    - terraform/*.tf
+    - terraform/vm/**
+    - terraform/network/**
+    - terraform/container_registry/**
 jobs:
   tfsec:
     name: Run tfsec sarif report
