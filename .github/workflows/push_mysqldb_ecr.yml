@@ -16,7 +16,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Print latest release tag using git describe
-        run: echo "Release Tag: $(git describe --tags --abbrev=0)"
+        run: |
+          echo "Release Tag: $(git describe --tags --abbrev=0)"
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
